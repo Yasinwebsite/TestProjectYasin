@@ -4,7 +4,7 @@ from .models import Post
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic import ListView,DetailView
 from django.contrib.auth.models import User
-
+from django.utils.text import slugify
 
 # Create your views here.
 
@@ -54,10 +54,13 @@ def addPost(request):
         name = request.POST.get("title")
         des = request.POST.get("desc")
 
+        slug = slugify(name) if name else ""
+
         p = Post.objects.create(
             title=name,
             des=des,
-            users = user1
+            users = user1,
+            slug=slug
 
         )
     elif request.method == "GET":
