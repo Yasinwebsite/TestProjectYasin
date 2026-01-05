@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from .models import Post
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -50,21 +50,25 @@ class PostDetailViews(DetailView):
 
 def addPost(request):
     if request.method == "POST":
-        user1 = request.user
         name = request.POST.get("title")
         des = request.POST.get("desc")
 
-        slug = slugify(name) if name else ""
+        slug = slugify(name) or "post"
+        if Post.objects.filter(slug=slug).exists():
+            slug = f"{slug}-{Post.objects.count() + 1}"
 
-        p = Post.objects.create(
+        user = request.user if request.user.is_authenticated else User.objects.first()
+        
+        Post.objects.create(
             title=name,
             des=des,
-            users = user1,
-            slug=slug
-
+            slug=slug,
+            users=user,
+            status=Post.Status.PUBLISHED,
         )
-    elif request.method == "GET":
-        print(request.POST)
+        
+        return redirect("blog:posts")
+        
 
-    context = {}
-    return render(request, "blog/addPost.html",context)
+
+    return render(request, "blog/addPost.html", {})
