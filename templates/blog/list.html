@@ -1,0 +1,35 @@
+{% extends 'parent/base.html' %}
+{% block title %}
+post list
+{% endblock %}
+
+{% block text %}
+post list
+{% endblock %}
+
+{% block content %}
+
+
+
+    <ol style="--length: {{ posts|length }}" role="list">
+
+    {% for post in posts %}
+
+        <li class="li_list" style="--i: {{ forloop.counter }}">
+            <h3>
+                 <a style="text-decoration: none;color: black" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </h3>
+                <p>{{ post.des }}</p>
+        </li>
+
+    {% endfor %}
+
+
+
+</ol>
+    {% include 'partials/pagination.html' with page_obj=page_obj %}
+{% endblock %}
+
+
+
+

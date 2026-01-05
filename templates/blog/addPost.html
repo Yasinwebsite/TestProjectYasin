@@ -1,0 +1,37 @@
+{% extends 'parent/base.html' %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>افزودن آیتم</title>
+</head>
+
+{% block content %}
+<body style="
+     font-family: Tahoma, sans-serif;
+
+   ">
+
+  <div class="card">
+    <h2>افزودن آیتم جدید</h2>
+    <form method="post">
+        {% csrf_token %}
+      <label for="title">عنوان</label><br>
+      <br>
+        <textarea name="title" id="" cols="30" rows="2"></textarea>
+      <label for="desc">توضیحات</label>
+      <textarea id="desc" name="desc" rows="4" placeholder="توضیحات..."></textarea>
+
+      <label for="tags">برچسب‌ها</label>
+      <input type="text" id="tags" name="tags" placeholder="مثال: css,html,form">
+
+      <div class="actions">
+        <button type="submit" id="btn" class="btn-primary">ثبت</button>
+        <button type="reset" id="btn1" class="btn-secondary">پاک کردن</button>
+      </div>
+    </form>
+  </div>
+    </body>
+{% endblock %}
+
+</html>

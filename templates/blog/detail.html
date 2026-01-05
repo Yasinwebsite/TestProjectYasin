@@ -1,0 +1,35 @@
+
+{% extends 'parent/base.html' %}
+{% block title %}
+post detail
+{% endblock %}
+{#{% block text %}post detail{% endblock %}#}
+{% block text1 %}{{ post.title }}{% endblock %}
+
+
+{% block content %}
+<hr>
+{{ post.title }}
+<ol style="--length: 1" role="list">
+    <li style="--i: 2">
+        <h3 style="font-size: 42px">{{ post.title }}</h3>
+
+            <h4 style="margin-left: 40px;color: blue">{{ post.des }}</h4>
+        <hr>
+            <p style="margin-left: 40px;color: blue">{{ post.slug }}</p>
+        <hr>
+            <p style="margin-left: 40px;color: blue">{{ post.puplish }}</p>
+        <hr>
+            <p style="margin-left: 40px;color: blue">{{ post.created }}</p>
+        <hr>
+            <p style="margin-left: 40px;color: blue">{{ post.updated }}</p>
+        <hr>
+            <p style="margin-left: 40px;color: blue">{{ post.status | truncatewords:5 }}</p>
+    </li>
+</ol>
+
+
+
+<hr>
+
+{% endblock %}
